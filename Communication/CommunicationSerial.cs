@@ -1,6 +1,8 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.IO.Ports;
 using System.Linq;
 using System.Text;
@@ -8,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Communication
 {
-    class CommunicationSerial : Component, ICommunication
+    public partial class CommunicationSerial : Component, ICommunication
     {
         private SerialPort serialPort;
 
@@ -20,6 +22,18 @@ namespace Communication
                 serialPort = value;
                 serialPort.DataReceived += SerialPort_DataReceived;
             }
+        }
+
+        public CommunicationSerial()
+        {
+            InitializeComponent();
+        }
+
+        public CommunicationSerial(IContainer container)
+        {
+            container.Add(this);
+
+            InitializeComponent();
         }
 
         private void SerialPort_DataReceived(object sender, SerialDataReceivedEventArgs e)
@@ -49,15 +63,11 @@ namespace Communication
             throw new NotImplementedException();
         }
 
-        public void GetJson(ref IJson json)
-        {
-            string data = SerialPort.ReadLine();
-            json.FromJson(data);
-        }
-
         public string GetString()
         {
-            return SerialPort.ReadLine();
+            var data = SerialPort.ReadLine();
+            Console.WriteLine("RX:" + data);
+            return data;
         }
 
         public void SendBytes(byte[] bytes, byte size)
@@ -65,14 +75,24 @@ namespace Communication
             SerialPort.Write(bytes, 0, size);
         }
 
-        public void SendJson(IJson json)
-        {
-            SerialPort.WriteLine(json.ToJson());
-        }
-
         public void SendString(string str)
         {
-            SerialPort.WriteLine(str);
+            SerialPort.Write(str + '\n');
+            Console.WriteLine("TX:" + str);
+        }
+
+        public void SendJson(object obj)
+        {
+            var data = JsonConvert.SerializeObject(obj);
+            SerialPort.Write(data + '\n');
+            Console.WriteLine("TX:" + data);
+        }
+
+        public Type GetJson<Type>()
+        {
+            var data = SerialPort.ReadLine();
+            Console.WriteLine("RX:" + data);
+            return JsonConvert.DeserializeObject<Type>(data);
         }
     }
 }

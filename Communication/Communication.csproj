@@ -48,6 +48,9 @@
     <Compile Include="CommunicationSerial.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="CommunicationSerial.Designer.cs">
+      <DependentUpon>CommunicationSerial.cs</DependentUpon>
+    </Compile>
     <Compile Include="ICommunication.cs" />
     <Compile Include="IJson.cs" />
     <Compile Include="IJsonMsg.cs" />
