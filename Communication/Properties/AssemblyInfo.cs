@@ -6,9 +6,9 @@ using System.Runtime.InteropServices;
 // conjunto de atributos. Altere estes valores de atributo para modificar as informações
 // associada a um assembly.
 [assembly: AssemblyTitle("Communication")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("Communication protocols to .net framework and embedded systems")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("BINARY_QUANTUM")]
 [assembly: AssemblyProduct("Communication")]
 [assembly: AssemblyCopyright("Copyright ©  2021")]
 [assembly: AssemblyTrademark("")]
