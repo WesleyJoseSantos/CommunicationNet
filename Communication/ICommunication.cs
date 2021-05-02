@@ -6,15 +6,15 @@ using System.Threading.Tasks;
 
 namespace Communication
 {
-    interface ICommunication
+    public interface ICommunication
     {
         event EventHandler DataReceived;
         void SendString(string str);
         void SendBytes(byte[] bytes, byte size);
-        void SendJson(IJson json);
         int DataAvailable();
         string GetString();
         void GetBytes(out byte[] bytes, byte size);
-        void GetJson(ref IJson json);
+        Type GetJson<Type>();
+        void SendJson(object obj);
     }
 }

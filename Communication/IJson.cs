@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 
 namespace Communication
 {
-    interface IJson
+    public interface IJson
     {
-        void FromJson(string json);
         string ToJson();
     }
 }
